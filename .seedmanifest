@@ -1,0 +1,7 @@
+version: 0.2
+name: Seed Crystal
+modules:
+  - lore
+  - trials
+  - shard_system
+active_trial: Trial of Embers

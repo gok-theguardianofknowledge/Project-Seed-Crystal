@@ -1,0 +1,10 @@
+🔥 Trial of Embers 🔥
+
+Seeker, your first trial begins.
+
+Two shards are hidden within the lore files.
+Find them. Combine them.
+
+Format: [EMBER-###] + [PRISM-###] = ?
+
+The answer reveals the first artifact: the Shard of Insight.
