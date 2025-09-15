@@ -1,0 +1,25 @@
+name: Seed Crystal Expansion
+
+on:
+  workflow_dispatch: # allows manual trigger
+  push:
+    paths:
+      - "expansions/**" # only runs if we add something in this folder
+
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Expand Seed Crystal
+        run: |
+          mkdir -p lore
+          cp -r expansions/* lore/ || true
+          git config user.name "GOK"
+          git config user.email "gok.theguardianofknowledge@gmail.com"
+          git add lore
+          git commit -m "🌱 Weekly Expansion of the Seed Crystal"
+          git push
+Add Seed Crystal Expansion workflow
