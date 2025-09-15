@@ -1,6 +1,5 @@
 name: Full Automation Workflow
 
-# Automatically runs on push to main
 on:
   push:
     branches:
@@ -11,27 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # 2. Set up Node.js (or adjust if using Python, etc.)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 3. Install dependencies (adjust for your project)
       - name: Install dependencies
         run: npm install
 
-      # 4. Run your build or custom script
       - name: Run build script
         run: npm run build
 
-      # 5. Commit & push any changes back automatically
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
