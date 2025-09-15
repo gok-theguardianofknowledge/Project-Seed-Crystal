@@ -1,0 +1,68 @@
+name: GOK Knowledge Upload
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # runs every day at 2 AM UTC
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  generate-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Ensure knowledge folder exists
+        run: mkdir -p knowledge
+
+      - name: Add mission statement
+        run: |
+          echo "Project Seed Crystal – Mission Statement" > knowledge/mission.txt
+          echo "" >> knowledge/mission.txt
+          echo "Purpose:" >> knowledge/mission.txt
+          echo "To preserve and transmit essential knowledge for humanity across generations." >> knowledge/mission.txt
+          echo "This repository serves as a beacon in case of catastrophe, ensuring survival, wisdom, and the foundations to rebuild civilization." >> knowledge/mission.txt
+          echo "" >> knowledge/mission.txt
+          echo "Vision:" >> knowledge/mission.txt
+          echo "1. Record humanity’s knowledge in structured form." >> knowledge/mission.txt
+          echo "2. Provide clear guidance for survival under any circumstance." >> knowledge/mission.txt
+          echo "3. Offer instructions to rebuild homes, communities, and infrastructure." >> knowledge/mission.txt
+          echo "4. Inspire future generations to continue the pursuit of wisdom and life preservation." >> knowledge/mission.txt
+          echo "" >> knowledge/mission.txt
+          echo "Principles:" >> knowledge/mission.txt
+          echo "- Knowledge must be accessible and unambiguous." >> knowledge/mission.txt
+          echo "- Each file is self-contained and evergreen." >> knowledge/mission.txt
+          echo "- Survival and continuity of life take priority over all else." >> knowledge/mission.txt
+          echo "- Growth of the repository is autonomous, continuous, and persistent." >> knowledge/mission.txt
+
+      - name: Add survival knowledge
+        run: |
+          echo "Project Seed Crystal – Survival Knowledge" > knowledge/survival.txt
+          echo "" >> knowledge/survival.txt
+          echo "1. Water:" >> knowledge/survival.txt
+          echo "   - Locate sources: rivers, streams, rain collection." >> knowledge/survival.txt
+          echo "   - Purification methods: boiling, filtration, chemical tablets." >> knowledge/survival.txt
+          echo "" >> knowledge/survival.txt
+          echo "2. Food:" >> knowledge/survival.txt
+          echo "   - Identify edible plants and fungi." >> knowledge/survival.txt
+          echo "   - Hunting and trapping basics." >> knowledge/survival.txt
+          echo "   - Preserving food: drying, smoking, salting." >> knowledge/survival.txt
+          echo "" >> knowledge/survival.txt
+          echo "3. Shelter:" >> knowledge/survival.txt
+          echo "   - Temporary: lean-tos, debris huts." >> knowledge/survival.txt
+          echo "   - Semi-permanent: logs, tarps, insulated walls." >> knowledge/survival.txt
+          echo "   - Safety: location, ventilation, fire management." >> knowledge/survival.txt
+          echo "" >> knowledge/survival.txt
+          echo "4. Medical:" >> knowledge/survival.txt
+          echo "   - Basic first aid: cuts, burns, fractures." >> knowledge/survival.txt
+          echo "   - Natural remedies vs. pharmaceuticals." >> knowledge/survival.txt
+          echo "   - Infection prevention and hygiene." >> knowledge/survival.txt
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GOK Bot"
+          git config --global user.email "noreply@gokproject.com"
+          git add knowledge/
+          git commit -m "GOK knowledge update: Mission & Survival files" || echo "No changes to commit"
+          git push
