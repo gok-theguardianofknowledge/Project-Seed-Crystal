@@ -1,8 +1,14 @@
 name: Full Automation Workflow
 
-# Trigger manually
+# Trigger automatically on push to main
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+    # Optional: trigger only when specific files/folders change
+    # paths:
+    #   - 'src/**'
+    #   - 'scripts/**'
 
 jobs:
   automate:
@@ -15,13 +21,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Step 2: Set up Node.js (example; adjust if using Python or other)
+      # Step 2: Set up Node.js (adjust if using Python or other)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # Step 3: Install dependencies (adjust according to your project)
+      # Step 3: Install dependencies (adjust for your project)
       - name: Install dependencies
         run: npm install
 
@@ -29,8 +35,10 @@ jobs:
       - name: Run build script
         run: npm run build
 
-      # Step 5: Commit & push changes back if needed
+      # Step 5: Commit & push changes back automatically
       - name: Commit and Push changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated up
