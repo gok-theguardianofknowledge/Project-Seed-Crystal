@@ -1,8 +1,8 @@
-name: GOK Knowledge Upload
+name: GOK Knowledge Upload (Autonomous)
 
 on:
   schedule:
-    - cron: '0 2 * * *' # runs every day at 2 AM UTC
+    - cron: '0 2 * * *' # runs daily at 2 AM UTC
   workflow_dispatch: # allows manual trigger
 
 jobs:
@@ -60,9 +60,11 @@ jobs:
           echo "   - Infection prevention and hygiene." >> knowledge/survival.txt
 
       - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GOK_REPO_TOKEN }}
         run: |
           git config --global user.name "GOK Bot"
           git config --global user.email "noreply@gokproject.com"
           git add knowledge/
           git commit -m "GOK knowledge update: Mission & Survival files" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
