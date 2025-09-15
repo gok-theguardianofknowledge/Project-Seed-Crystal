@@ -1,29 +1,18 @@
-name: Seed Crystal Expansion
+name: Project Seed Crystal Flow
 
 on:
   push:
-    paths:
-      - "expansions/**"
-  workflow_dispatch: # manual trigger enabled
+    branches:
+      - main
+  workflow_dispatch: # allows manual run from Actions tab
 
 jobs:
-  expand:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Prepare lore directory
-        run: mkdir -p lore
-
-      - name: Copy expansions into lore
-        run: |
-          cp -r expansions/* lore/ || true
-
-      - name: Commit and push lore
-        run: |
-          git config user.name "GOK"
-          git config user.email "gok.theguardianofknowledge@gmail.com"
-          git add lore
-          git commit -m "🌱 Weekly Expansion of the Seed Crystal" || echo "No changes to commit"
-          git push
+      - name: Run a test command
+        run: echo "🔥 The First Flame rises – workflow is working!"
